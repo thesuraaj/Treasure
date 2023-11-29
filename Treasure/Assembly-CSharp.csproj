@@ -59,11 +59,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\PlayerCam.cs" />
+    <Compile Include="Assets\Script\Audio\FMODEvents.cs" />
     <Compile Include="Assets\Script\PlayerLife.cs" />
     <Compile Include="Assets\Script\MoveCamera.cs" />
     <Compile Include="Assets\Script\Rotate.cs" />
     <Compile Include="Assets\Script\ItemCollector.cs" />
     <Compile Include="Assets\Script\PlayerMovement.cs" />
+    <Compile Include="Assets\Script\Audio\AudioManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -799,6 +801,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="FMODUnityEditor.csproj">
+      <Project>{5BFB6A64-FCB5-6474-37D0-25E10106579E}</Project>
+      <Name>FMODUnityEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="FMODUnityResonance.csproj">
+      <Project>{B9A8AF58-9F14-E281-9C0A-3FFDE8C58B28}</Project>
+      <Name>FMODUnityResonance</Name>
+    </ProjectReference>
+    <ProjectReference Include="FMODUnity.csproj">
+      <Project>{005D7D8A-639A-A49F-C85E-EDCAAD7183A0}</Project>
+      <Name>FMODUnity</Name>
+    </ProjectReference>
+    <ProjectReference Include="FMODUnityResonanceEditor.csproj">
+      <Project>{3E2B34AF-D55C-7C5C-B727-378C0DE8D94C}</Project>
+      <Name>FMODUnityResonanceEditor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

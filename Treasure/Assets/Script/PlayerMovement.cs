@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using FMOD.Studio;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+    //audio
+    private EventInstance playerFootsteps;
 
     private void Start()
     {
@@ -41,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
+
+        playerFootsteps = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootsteps);
     }
 
     private void Update()
@@ -61,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+
+        UpdateSound();
     }
 
     private void MyInput()
@@ -116,4 +123,34 @@ public class PlayerMovement : MonoBehaviour
     {
         readyToJump = true;
     }
+
+
+    private void UpdateSound()
+    {
+        if (grounded)
+        {
+            PLAYBACK_STATE playbackState;
+            playerFootsteps.getPlaybackState(out playbackState);
+
+            // Check if the player is moving (considering only the horizontal and vertical movement)
+            bool isMoving = Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f;
+
+            if (isMoving)
+            {
+                if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+                {
+                    playerFootsteps.start();
+                }
+            }
+            else
+            {
+                playerFootsteps.stop(STOP_MODE.IMMEDIATE);
+            }
+        }
+        else // If not grounded, the player is considered not moving
+        {
+            playerFootsteps.stop(STOP_MODE.IMMEDIATE);
+        }
+    }
+
 }

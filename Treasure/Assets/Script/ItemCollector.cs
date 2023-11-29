@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ItemCollector : MonoBehaviour
 {
+
     int coins = 0;
     [SerializeField] Text coinsText;
     [SerializeField] AudioClip coinPickupSound;  // Add this line
@@ -23,10 +24,18 @@ public class ItemCollector : MonoBehaviour
             coins++;
 
             // Play the coin pickup sound
-            if (coinPickupSound != null && audioSource != null)
-            {
-                audioSource.PlayOneShot(coinPickupSound);
-            }
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.coinCollected, this.transform.position);
+
+            // Update the UI text
+            //coinsText.text = "Coins: " + coins;
+        }
+        if (other.gameObject.CompareTag("Emerald"))
+        {
+            Destroy(other.gameObject);
+
+
+            // Play the emerald pickup sound
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.emeraldCollected, this.transform.position);
 
             // Update the UI text
             //coinsText.text = "Coins: " + coins;
